@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
+import Link from 'next/link'
 
 export default function Sidebar() {
 	const [activeSection, setActiveSection] = useState<
@@ -28,7 +29,7 @@ export default function Sidebar() {
 		],
 		javascript: [
 			{ id: 'introduction', title: 'Kirish' },
-			{ id: 'variables', title: "O'zgaruvchilar" },
+			{ id: 'variables', title: 'O&apos;zgaruvchilar' },
 			{ id: 'functions', title: 'Funksiyalar' },
 			{ id: 'dom', title: 'DOM Manipulyatsiya' },
 			{ id: 'events', title: 'Eventlar' },
@@ -37,7 +38,7 @@ export default function Sidebar() {
 		react: [
 			{ id: 'introduction', title: 'Kirish' },
 			{ id: 'components', title: 'Komponentlar' },
-			{ id: 'hooks', title: "Hook'lar" },
+			{ id: 'hooks', title: 'Hook&apos;lar' },
 			{ id: 'state', title: 'State Boshqaruvi' },
 			{ id: 'props', title: 'Props' },
 			{ id: 'lifecycle', title: 'Lifecycle' },
@@ -55,7 +56,7 @@ export default function Sidebar() {
 			</div>
 
 			<nav className='flex flex-col gap-1'>
-				<a
+				<Link
 					href='/'
 					className={`px-3 py-2 rounded-lg transition-colors ${
 						pathname === '/'
@@ -64,7 +65,7 @@ export default function Sidebar() {
 					}`}
 				>
 					Bosh sahifa
-				</a>
+				</Link>
 
 				{(['html', 'css', 'javascript', 'react'] as const).map(section => (
 					<div key={section} className='mt-2'>
@@ -86,13 +87,13 @@ export default function Sidebar() {
 							(isDocsPage && currentSection === section)) && (
 							<div className='flex flex-col pl-4 mt-1 gap-1'>
 								{topics[section].map(topic => (
-									<a
+									<Link
 										key={topic.id}
 										href={`/docs/${section}#${topic.id}`}
 										className='px-3 py-2 text-sm rounded-lg hover:bg-gray-100 text-gray-600 hover:text-gray-900 transition-colors'
 									>
 										{topic.title}
-									</a>
+									</Link>
 								))}
 							</div>
 						)}
