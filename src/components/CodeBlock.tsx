@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { Copy, Check } from 'lucide-react'
 
 interface CodeBlockProps {
 	code: string
@@ -12,43 +11,25 @@ export default function CodeBlock({
 	code,
 	language = 'javascript',
 }: CodeBlockProps) {
-	const [copied, setCopied] = useState<boolean>(false)
+	const [copied, setCopied] = useState(false)
 
-	const copyToClipboard = async (): Promise<void> => {
-		try {
-			await navigator.clipboard.writeText(code)
-			setCopied(true)
-			setTimeout(() => setCopied(false), 2000)
-		} catch (error) {
-			console.error('Nusxalashda xatolik:', error)
-		}
+	const copyToClipboard = async () => {
+		await navigator.clipboard.writeText(code)
+		setCopied(true)
+		setTimeout(() => setCopied(false), 2000)
 	}
 
 	return (
-		<div className='relative bg-gray-900 rounded-lg overflow-hidden my-4'>
-			<div className='flex justify-between items-center bg-gray-800 px-4 py-2'>
-				<span className='text-gray-300 text-sm'>{language}</span>
-				<button
-					onClick={copyToClipboard}
-					className='flex items-center space-x-2 text-gray-300 hover:text-white transition-colors'
-					aria-label='Kodni nusxalash'
-				>
-					{copied ? (
-						<>
-							<Check className='h-4 w-4' />
-							<span className='text-sm'>Nusxalandi!</span>
-						</>
-					) : (
-						<>
-							<Copy className='h-4 w-4' />
-							<span className='text-sm'>Nusxalash</span>
-						</>
-					)}
-				</button>
-			</div>
-			<pre className='p-4 overflow-x-auto'>
-				<code className={`language-${language} text-gray-100`}>{code}</code>
+		<div className='relative'>
+			<pre className='bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm'>
+				<code>{code}</code>
 			</pre>
+			<button
+				onClick={copyToClipboard}
+				className='absolute top-2 right-2 bg-gray-700 text-white px-2 py-1 rounded text-xs hover:bg-gray-600 transition-colors'
+			>
+				{copied ? 'Nusxalandi!' : 'Nusxalash'}
+			</button>
 		</div>
 	)
 }

@@ -1,24 +1,21 @@
-import { Inter } from 'next/font/google'
 import './globals.css'
-
-const inter = Inter({ subsets: ['latin'] })
+import Sidebar from '@/components/Sidebar'
 
 export const metadata = {
-	title: 'Frontend Interview Tayyorlanish - TypeScript',
-	description: 'Frontend intervyulariga tayyorlanish uchun to‘liq qo‘llanma',
+	title: 'Frontend Interview Docs',
+	description: 'Frontend interviewga tayyorlanish dokumentatsiyasi',
 }
 
-interface RootLayoutProps {
+export default function RootLayout({
+	children,
+}: {
 	children: React.ReactNode
-}
-
-export default function RootLayout({ children }: RootLayoutProps) {
+}) {
 	return (
-		<html lang='uz'>
-			<body className={inter.className}>
-				<div className='min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100'>
-					{children}
-				</div>
+		<html lang='en'>
+			<body className='flex min-h-screen bg-gray-50'>
+				<Sidebar />
+				<main className='flex-1 p-8 overflow-y-auto'>{children}</main>
 			</body>
 		</html>
 	)
